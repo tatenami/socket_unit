@@ -27,25 +27,24 @@ typedef struct{
     uint16_t addr_len;
 }socket_data;
 
-class DstData{
+class DstUnit{
 public:
     struct sockaddr_in addr;
-    DstData(string ip_addr, int port);
+    DstUnit(string ip_addr, uint16_t port);
+    DstUnit(uint16_t local_port);
 };
 
 /*----------[socket_unit: base class]----------*/
 
 class SocketUnit{
 protected:
-    socket_data global_socket;
-    socket_data local_socket;
+    socket_data sd;
 
     struct sockaddr_in src_data;
-    bool opened_local_socket = false;
     uint8_t RxBuf[BUF_SIZE];
 
-    virtual void set_socket(socket_data& sd, string ip_addr, uint16_t port) = 0;
-    void bind_socket(socket_data& sd);
+    virtual void set_socket(string ip_addr, uint16_t port) = 0;
+    void bind_socket();
 public:
     ~SocketUnit();
 
@@ -62,12 +61,12 @@ protected:
     socket_data bc_data;
     bool permission_broadcast = false;
 
-    void set_socket(socket_data& sd, string ip_addr, uint16_t port);         
+    void set_socket(string ip_addr, uint16_t port);         
 public:
-    UDPUnit(string ip_addr, int port);
-    int set_local_socket(uint16_t local_port);
+    UDPUnit(string ip_addr, uint16_t port);
+    UDPUnit(uint16_t local_port);
 
-    int send(void *buf, DstData *dst);
+    int send(void *buf, DstUnit *dst);
     bool enable_broadcast(int bc_port);
     int send_all(void *buf);
 };
