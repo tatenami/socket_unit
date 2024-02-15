@@ -66,8 +66,8 @@ UDPUnit::UDPUnit(uint16_t local_port){
     bind_socket();
 }
 
-int UDPUnit::send(void *buf, DstUnit *dst){
-    int size = sendto(sd.sock, buf, sizeof(*(uint8_t *)buf), 0, (struct sockaddr *)&(dst->addr), sizeof(dst->addr));
+int UDPUnit::send(void *buf, DstUnit *dst, int len){
+    int size = sendto(sd.sock, buf, len, 0, (struct sockaddr *)&(dst->addr), sizeof(dst->addr));
     return size;
 }
 

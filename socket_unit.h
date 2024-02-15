@@ -66,7 +66,7 @@ public:
     UDPUnit(string ip_addr, uint16_t port);
     UDPUnit(uint16_t local_port);
 
-    int send(void *buf, DstUnit *dst);
+    int send(void *buf, DstUnit *dst, int len);
     bool enable_broadcast(int bc_port);
     int send_all(void *buf);
 };
