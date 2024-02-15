@@ -41,15 +41,13 @@ protected:
     socket_data sd;
 
     struct sockaddr_in src_data;
-    uint8_t RxBuf[BUF_SIZE];
 
     virtual void set_socket(string ip_addr, uint16_t port) = 0;
     void bind_socket();
 public:
     ~SocketUnit();
 
-    int receive();
-    void get_RxData(void *buf);
+    int receive(void *buf, int size);
     char* get_src_addr();
     int get_src_port();
 };

@@ -28,14 +28,10 @@ SocketUnit::~SocketUnit(){
     close(sd.sock);
 }
 
-int SocketUnit::receive(){
+int SocketUnit::receive(void *buf, int size){
     unsigned int addr_len = sizeof(src_data);
-    int size = recvfrom(sd.sock, RxBuf, BUF_SIZE, 0, (struct sockaddr *)&src_data, &addr_len);
+    int size = recvfrom(sd.sock, buf, size, 0, (struct sockaddr *)&src_data, &addr_len);
     return size;
-}
-
-void SocketUnit::get_RxData(void *buf){
-    memcpy(buf, RxBuf, BUF_SIZE);
 }
 
 char* SocketUnit::get_src_addr(){
